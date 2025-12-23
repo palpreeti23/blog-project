@@ -35,10 +35,10 @@ function Header() {
 
   return (
     <div className="w-full h-auto">
-      <nav className="py-2 bg-gray-300 border rounded-xl ">
+      <nav className="py-2 bg-gray-600 border rounded-xl ">
         <div className="flex ">
-          <div className="px-5 pt-1">LOGO</div>
-          <ul className="outline-none flex ml-auto pr-8">
+          <div className="px-5 pt-1 text-gray-400">LOGO</div>
+          <ul className="outline-none flex ml-auto pr-8 text-gray-950">
             {navItems?.map((items) => (
               // items.active ? (
               //   <li className="mx-8 px-2 " key={items.name}>
