@@ -3,38 +3,49 @@ import { Input, Button } from "./index";
 import { useForm } from "react-hook-form";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
-import { login as authLogin } from "../store/AuthSlice";
-// import { Link } from "react-router-dom";
+import { login } from "../store/AuthSlice";
 import image from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
+// import { useNavigate } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-function Login() {
+function Signup() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
 
-  const login = async (data) => {
-    authService.login(data).then((userData) => {
+  const create = async (data) => {
+    const session = await authService.createAccount(data);
+    if (session) {
+      const userData = await authService.getCurrentUser();
       if (userData) {
-        dispatch(authLogin(userData));
+        dispatch(login(userData));
+        // navigate("/");
       }
-    });
+    }
+    // navigate("/");
   };
-
   return (
     <div className="w-full h-screen ">
       <div className="flex">
         <div className="w-1/2 ">
-          <img
-            className="w-full h-screen object-cover"
-            src={image}
-            alt="placeholder"
-          />
+          <img className="w-full h-screen" src={image} alt="" />
         </div>
 
         <div className="w-1/2 h-screen bg-gray-700">
           <div className=" min-h-screen flex justify-center items-center">
-            <div className="rounded-xl m-4 p-9">
-              <h2 className=" font-medium text-2xl text-white my-5 ">Login</h2>
-              <form onSubmit={handleSubmit(login)} className="">
+            <div className=" m-4 px-9 py-4">
+              <h2 className=" font-medium text-2xl text-white my-4 ">Signup</h2>
+              <form onSubmit={handleSubmit(create)} className="">
+                <Input
+                  type="name"
+                  label="Name"
+                  className="text-gray-600"
+                  placeholder="Enter your name"
+                  {...register("name", {
+                    required: true,
+                  })}
+                />
+
                 <Input
                   type="email"
                   label="Email"
@@ -68,9 +79,9 @@ function Login() {
                 </Button>
               </form>
               <p className="text-white m-1 pr-2">
-                Don't have an account?
+                Already have an account?
                 {/* <Link> */}
-                <span className="ml-1">Signup</span>
+                <span className="ml-1">Login</span>
                 {/* </Link> */}
               </p>
             </div>
@@ -81,4 +92,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

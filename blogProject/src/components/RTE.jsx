@@ -2,24 +2,41 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import { Editor } from "@tinymce/tinymce-react";
 
-function RTE({ name, control, defaultValue = "" }) {
+function RTE({ name, label, control, defaultValue = "" }) {
   return (
     <div>
+      {label && (
+        <label className="text-white text-left px-2 mt-2">{label}</label>
+      )}
       <Controller
         name={name || "content"}
         control={control}
         render={({ field: onChange }) => (
           <Editor
-            apiKey=""
+            apiKey="2xnm8r8h1xqceuzzcifleksvhm15m396bjb80nb9m8rxseft"
             initialValue={defaultValue}
             init={{
               initialValue: defaultValue,
               menubar: true,
               height: 400,
               plugins: [
-                "advlist autolink lists link image charmap code codesample",
-                "emoticons fullscreen help searchreplace visualblocks visualchars",
-                "nonbreaking insertdatetime autoresize autosave paste wordcount",
+                "advlist",
+                "autolink",
+                "lists",
+                "link",
+                "image",
+                "charmap",
+                "preview",
+                "anchor",
+                "searchreplace",
+                "visualblocks",
+                "code",
+                "fullscreen",
+                "insertdatetime",
+                "media",
+                "table",
+                "help",
+                "wordcount",
               ],
               toolbar:
                 "undo redo | bold italic underline | \
