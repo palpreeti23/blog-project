@@ -39,6 +39,7 @@ function Signup() {
                 <Input
                   type="name"
                   label="Name"
+                  labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your name"
                   {...register("name", {
@@ -49,6 +50,7 @@ function Signup() {
                 <Input
                   type="email"
                   label="Email"
+                  labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your Email"
                   {...register("email", {
@@ -63,6 +65,7 @@ function Signup() {
                 <Input
                   type="password"
                   label="Password"
+                  labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your password"
                   {...register("Password", {

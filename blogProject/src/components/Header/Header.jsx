@@ -10,8 +10,8 @@ function Header() {
   //     // active: authStatus,
   //   },
   //   {
-  //     name: "Contact",
-  //     slug: "/contact",
+  //     name: "AllPosts",
+  //     slug: "/all-posts",
   //     // active: authStatus,
   //   },
   //   {

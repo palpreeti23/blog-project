@@ -24,13 +24,13 @@ function Login() {
       <div className="flex">
         <div className="w-1/2 ">
           <img
-            className="w-full h-screen object-cover"
+            className="w-full h-screen object-cover rounded-l-xl"
             src={image}
             alt="placeholder"
           />
         </div>
 
-        <div className="w-1/2 h-screen bg-gray-700">
+        <div className="w-1/2 h-screen bg-gray-700 rounded-r-xl">
           <div className=" min-h-screen flex justify-center items-center">
             <div className="rounded-xl m-4 p-9">
               <h2 className=" font-medium text-2xl text-white my-5 ">Login</h2>
@@ -38,6 +38,7 @@ function Login() {
                 <Input
                   type="email"
                   label="Email"
+                  labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your Email"
                   {...register("email", {
@@ -52,6 +53,7 @@ function Login() {
                 <Input
                   type="password"
                   label="Password"
+                  labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your password"
                   {...register("Password", {

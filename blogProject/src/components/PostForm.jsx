@@ -1,12 +1,21 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Input, RTE, Button } from "./index";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import appwriteService from "../appwrite/post";
 import { addPost, updatePost } from "../store/PostSlice";
+import images from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
 
 function PostForm({ post }) {
+  const [preview, setPreview] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setPreview(URL.createObjectURL(file));
+  };
+
   const { register, handleSubmit, watch, setValue, getValues, control } =
     useForm({
       defaultValues: {
@@ -18,8 +27,8 @@ function PostForm({ post }) {
       },
     });
 
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
   const create = async (data) => {
@@ -36,7 +45,7 @@ function PostForm({ post }) {
       });
       if (dbPost) {
         dispatch(updatePost(dbPost));
-        // navigate("/");
+        navigate("/");
       }
     } else {
       const file = data.image[0]
@@ -50,7 +59,7 @@ function PostForm({ post }) {
       });
       if (dbpost) {
         dispatch(addPost(dbpost));
-        // navigate("/");
+        navigate("/");
       }
     }
   };
@@ -76,87 +85,17 @@ function PostForm({ post }) {
     };
   }, [watch, slugTransform, setValue]);
 
-  //   return (
-  //     <form onSubmit={handleSubmit(create)}>
-  //       <div className="w-full h-screen flex">
-  //         <div className="w-2/3 bg-amber-100">
-  //           <Input
-  //             type="title"
-  //             label="Title"
-  //             className="text-gray-600"
-  //             placeholder="Enter your title"
-  //             {...register("title", {
-  //               required: true,
-  //             })}
-  //           />
-
-  //           <Input
-  //             type="text"
-  //             label="Slug"
-  //             className="text-gray-600"
-  //             placeholder="See your slug"
-  //             {...register("slug", { required: true })}
-  //             onInput={(e) => {
-  //               setValue("slug", slugTransform(e.currentTarget.value));
-  //             }}
-  //           />
-
-  //           <RTE
-  //             name="content"
-  //             label="Content"
-  //             control={control}
-  //             defaultValue={getValues("content")}
-  //           />
-  //         </div>
-  //         <div className="w-1/3 ">
-  //           <Input
-  //             type="file"
-  //             label="Image"
-  //             accept="image/png, image/jpeg, image/jpg, image/svg, image/gif"
-  //             className="text-gray-600"
-  //             placeholder="Select your image"
-  //             {...register("image", {
-  //               required: true,
-  //             })}
-  //           />
-
-  //           {post && (
-  //             <div className="w-full h-auto object-contain">
-  //               <img
-  //                 src={appwriteService.getFilePreview(post.featuredImage)}
-  //                 className="rounded-lg w-full h-30"
-  //                 alt={post.title}
-  //               />
-  //             </div>
-  //           )}
-
-  //           <Button
-  //             type="submit"
-  //             className="hover:border hover:shadow-xl "
-  //             bgColor={
-  //               post
-  //                 ? "bg-green-600 hover:bg-green-500 active:bg-green-700"
-  //                 : "bg-blue-600 hover:bg-blue-500 active:bg-blue-700 "
-  //             }
-  //           >
-  //             {post ? "Upadte" : "Submit"}
-  //           </Button>
-  //         </div>
-  //       </div>
-  //     </form>
-  //   );
-  // }
-
   return (
     <form
       onSubmit={handleSubmit(create)}
       className="w-full h-auto bg-gray-200 rounded-2xl p-3"
     >
-      <div className="flex flex-wrap">
-        <div className="w-2/3 px-2 pb-5">
-          <div className="w-4/5">
+      <div className="flex flex-wrap my-4">
+        <div className="w-2/3  pb-5 pl-5">
+          <div className="w-4/5 ">
             <Input
               label="Title"
+              labelClassName="text-gray-800 "
               type="text"
               placeholder="Enter your title"
               className="bg-white w-1/2 "
@@ -186,14 +125,31 @@ function PostForm({ post }) {
           </div>
         </div>
 
-        <div className="w-1/3 px-2">
+        <div className="w-1/3 pr-5 ">
+          <div className="w-full h-50 my-7">
+            {preview ? (
+              <img
+                src={preview}
+                alt="Preview"
+                className="h-full w-full rounded-lg object-cover"
+              />
+            ) : (
+              <img
+                src={images}
+                alt="Preview"
+                className="h-full w-full rounded-lg object-cover"
+              />
+            )}
+          </div>
+
           <Input
             label="image"
             type="file"
             accept="image/jpeg, image/jpg, imag/svg, image/png, image/gif"
             placeholder="add your image"
-            className="my-1 w-2/3"
+            className="my-1 w-2/3 bg-white"
             {...register("image")}
+            onChange={handleImageChange}
           />
 
           {post && (
@@ -222,5 +178,4 @@ function PostForm({ post }) {
     </form>
   );
 }
-
 export default PostForm;

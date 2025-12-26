@@ -1,12 +1,18 @@
 import React from "react";
 import { useId, forwardRef } from "react";
 
-function Input({ label, type, className = "", ...props }, ref) {
+function Input(
+  { label, labelClassName = "", type, className = "", ...props },
+  ref
+) {
   const id = useId();
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor="id" className={`text-white text-left px-2 mt-2`}>
+        <label
+          htmlFor={id}
+          className={` text-left px-2 mt-2 ${labelClassName}`}
+        >
           {label}
         </label>
       )}
