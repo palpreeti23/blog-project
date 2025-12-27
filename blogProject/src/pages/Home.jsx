@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
+import { PostCard } from "../components";
 import appwriteService from "../appwrite/post";
-import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../store/PostSlice";
-import { Container, PostCard } from "../components";
-// import { UseSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import images from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
 
-function AllPosts() {
+function Home() {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.post);
-
   const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
@@ -19,8 +18,16 @@ function AllPosts() {
       }
     });
   }, [dispatch]);
+
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
+      <div className="w-full h-auto">
+        <img
+          className="w-full h-90 object-cover rounded-2xl"
+          src={images}
+          alt="image"
+        />
+      </div>
       <ul className="flex">
         {posts?.map((post) => (
           <li key={post.$id} className="mx-3">
@@ -32,4 +39,4 @@ function AllPosts() {
   );
 }
 
-export default AllPosts;
+export default Home;

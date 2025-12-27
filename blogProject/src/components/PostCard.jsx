@@ -12,11 +12,11 @@ function PostCard({ title, featuredImage, $id, content }) {
   const [expand, setExpand] = useState(false);
 
   return (
-    <div className="w-full h-auto rounded-xl border bg-gray-200 shadow-gray-600 shadow-2xl my-3 ">
+    <div className="w-60 h-auto rounded-xl border bg-gray-200 shadow-gray-600 shadow-2xl my-3 ">
       <div className="flex flex-col ">
         <Link to={`/post/${$id}`}>
           <img
-            className="w-50 h-40 object-cover rounded-xl"
+            className="w-full h-40 object-cover rounded-xl"
             src={images}
             alt="placeholder"
           />
@@ -25,7 +25,7 @@ function PostCard({ title, featuredImage, $id, content }) {
         <div>
           <p
             className={`text-gray-800 text-left px-3 ${
-              expand ? "" : "line-clamp-3"
+              expand ? "" : "line-clamp-1"
             }`}
           >
             {parse(content)}

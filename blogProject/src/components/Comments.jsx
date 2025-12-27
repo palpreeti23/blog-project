@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import appwriteService from "../appwrite/post";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { Input, Button } from "./index";
 
 function Comments() {
   const { register, handleSubmit } = useForm();

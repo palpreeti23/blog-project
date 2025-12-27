@@ -1,13 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Logo from "../Logo";
 function Footer() {
   return (
-    <footer className="w-full h-auto">
+    <footer className="w-full h-auto mt-8">
       <div className="bg-gray-600 rounded-xl border">
         <div className="flex flex-col">
-          <p className="text-gray-300 text-center font-medium mt-3 ">
-            Hi, i'm Preeti - learning and writing about code.
-          </p>
+          <div className="flex justify-center">
+            <div className="mt-3 mr-8">
+              <Logo />
+            </div>
+            <p className="text-gray-300  font-medium mt-5 ml-5 ">
+              Hi, i'm Preeti - learning and writing about code.
+            </p>
+          </div>
+
           <div className="flex justify-around">
             <div className="text-gray-400 text-center font-medium my-10">
               <p>&copy; 2025 All Rights Reserved.</p>

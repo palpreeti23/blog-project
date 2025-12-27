@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   posts: [],
   post: null,
-  loading: false,
+  // loading: false,
   error: null,
 };
 
@@ -18,18 +18,19 @@ const postSlice = createSlice({
       state.post = action.payload;
     },
     addPost: (state, action) => {
-      state.post.push(action.payload);
+      state.posts = state.posts.unshift(action.payload);
     },
     updatePost: (state, action) => {
-      state.post = state.post.map((post) => {
+      state.posts = state.posts.map((post) => {
         post.$id === action.payload.$id ? action.payload : post;
       });
       state.post = action.payload;
     },
     deletePost: (state, action) => {
-      state.post = state.post.filter((post) => {
-        post.$id !== action.payload.$id;
+      state.posts = state.posts.filter((post) => {
+        post.$id !== action.payload;
       });
+      state.post = null;
     },
   },
 });

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
 import { login as authLogin } from "../store/AuthSlice";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import image from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
 
 function Login() {
@@ -56,7 +56,7 @@ function Login() {
                   labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your password"
-                  {...register("Password", {
+                  {...register("password", {
                     required: true,
                   })}
                 />
@@ -71,9 +71,9 @@ function Login() {
               </form>
               <p className="text-white m-1 pr-2">
                 Don't have an account?
-                {/* <Link> */}
-                <span className="ml-1">Signup</span>
-                {/* </Link> */}
+                <Link to="/signup">
+                  <span className="ml-1">Signup</span>
+                </Link>
               </p>
             </div>
           </div>

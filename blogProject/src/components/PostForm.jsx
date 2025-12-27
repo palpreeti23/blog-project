@@ -11,12 +11,13 @@ function PostForm({ post }) {
   const [preview, setPreview] = useState(null);
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (!file) return;
+
     setPreview(URL.createObjectURL(file));
   };
 
-  const { register, handleSubmit, watch, setValue, getValues, control } =
+  const { register, handleSubmit, watch, setValue, getValues, control, reset } =
     useForm({
       defaultValues: {
         title: post?.title || "",
@@ -27,11 +28,25 @@ function PostForm({ post }) {
       },
     });
 
+  useEffect(() => {
+    if (post) {
+      reset({
+        title: post.title,
+        content: post.content,
+        slug: post.slug,
+        featuredImage: post.featuredImage,
+      });
+    }
+  }, [post, reset]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
   const create = async (data) => {
+    if (!userData) {
+      console.log("userdata is not defined");
+      return;
+    }
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadfile(data.image[0])
@@ -39,27 +54,30 @@ function PostForm({ post }) {
       if (file) {
         await appwriteService.deletefile(post.featuredImage);
       }
-      const dbPost = await appwriteService.updatePostData({
+      const dbPost = await appwriteService.updatePostData(post.$id, {
         ...data,
         featuredImage: file?.$id,
       });
       if (dbPost) {
         dispatch(updatePost(dbPost));
-        navigate("/");
+        navigate(`/post/${dbPost.$id}`);
       }
     } else {
-      const file = data.image[0]
-        ? await appwriteService.uploadfile(data.image[0])
-        : null;
-      const fileId = file.$id;
-      data.featuredImage = fileId;
-      const dbpost = await appwriteService.createPost({
-        ...data,
-        userId: userData?.$id,
-      });
-      if (dbpost) {
-        dispatch(addPost(dbpost));
-        navigate("/");
+      const image = data.image[0];
+      console.log(" no image", image);
+      const file = await appwriteService.uploadfile(image);
+      if (file) {
+        const fileId = file.$id;
+        data.featuredImage = fileId;
+        const dbPost = await appwriteService.createPost({
+          ...data,
+          userId: userData.$id,
+        });
+
+        if (dbPost) {
+          dispatch(addPost(dbPost));
+          navigate(`/post/${dbPost.$id}`);
+        }
       }
     }
   };
@@ -69,7 +87,8 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/[^a-zA-Z0-9]+/g, "-");
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
+        .replace(/\s/g, "-");
 
     return "";
   });
@@ -77,7 +96,9 @@ function PostForm({ post }) {
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTransform(title.value));
+        setValue("slug", slugTransform(value.title), {
+          shouldValidate: true,
+        });
       }
     });
     return () => {
@@ -119,7 +140,7 @@ function PostForm({ post }) {
                 label="content"
                 name="content"
                 control={control}
-                defaultValue={getValues("content")}
+                // defaultValue={getValues("content")}
               />
             </div>
           </div>
@@ -127,14 +148,15 @@ function PostForm({ post }) {
 
         <div className="w-1/3 pr-5 ">
           <div className="w-full h-50 my-7">
-            {preview ? (
+            {post ? (
               <img
-                src={preview}
-                alt="Preview"
-                className="h-full w-full rounded-lg object-cover"
+                src={appwriteService.getFilePreview(post.featuredImage)}
+                className="rounded-lg w-full h-50"
+                alt={post.title}
               />
             ) : (
               <img
+                // src={preview}
                 src={images}
                 alt="Preview"
                 className="h-full w-full rounded-lg object-cover"
@@ -148,11 +170,11 @@ function PostForm({ post }) {
             accept="image/jpeg, image/jpg, imag/svg, image/png, image/gif"
             placeholder="add your image"
             className="my-1 w-2/3 bg-white"
-            {...register("image")}
+            {...register("image", { required: true })}
             onChange={handleImageChange}
           />
 
-          {post && (
+          {/* {post ? (
             <div className="w-full h-auto object-contain">
               <img
                 src={appwriteService.getFilePreview(post.featuredImage)}
@@ -160,7 +182,13 @@ function PostForm({ post }) {
                 alt={post.title}
               />
             </div>
-          )}
+          ) : (
+            <img
+              src={preview}
+              alt="Preview"
+              className="h-full w-full rounded-lg object-cover"
+            />
+          )} */}
 
           <Button
             type="submit"

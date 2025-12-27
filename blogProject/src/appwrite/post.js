@@ -91,13 +91,13 @@ class AppwriteService {
     }
   }
 
-  async getUserPosts(userId) {
-    return await this.database.listDocuments(
-      config.appwriteDatabaseId,
-      config.appwriteCollectionId,
-      [Query.equal("authorId", userId)]
-    );
-  }
+  // async getUserPosts(userId) {
+  //   return await this.database.listDocuments(
+  //     config.appwriteDatabaseId,
+  //     config.appwriteCollectionId,
+  //     [Query.equal("authorId", userId)]
+  //   );
+  // }
 
   // storage
 
