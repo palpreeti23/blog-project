@@ -3,6 +3,7 @@ import React, { forwardRef } from "react";
 function Button({
   children,
   type,
+  onClick,
   className = "",
   bgColor = "bg-blue-500",
   textColor = "black",
@@ -11,6 +12,7 @@ function Button({
   return (
     <button
       type={type}
+      onClick={onClick}
       className={`border rounded-xl my-3 py-2 px-3 ${bgColor}${className}${textColor}`}
       {...props}
       //   ref={ref}
