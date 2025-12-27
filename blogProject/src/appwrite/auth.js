@@ -14,19 +14,17 @@ class AuthService {
 
   async createAccount({ email, password, name }) {
     try {
-      const userData = await this.account.create(
+      const userAccount = await this.account.create(
         ID.unique(),
         email,
         password,
         name
       );
-      if (userData) {
-        return this.login(email, password);
+      if (userAccount) {
+        return this.login({ email, password });
       } else {
-        return userData;
+        return userAccount;
       }
-
-      //   return true
     } catch (error) {
       console.log("authService :: createAccount :: error", error);
       return false;
@@ -45,21 +43,24 @@ class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
+      if (error?.code === 401) {
+        return null;
+      }
       console.log("authService :: getCurrentUser :: error", error);
-      return false;
+      return null;
     }
   }
 
-  async emailVerification() {
-    try {
-      //maybe make it like just await and then return true
-      return await this.account.createVerification({
-        url: "http://localhost:5173/verify",
-      });
-    } catch (error) {
-      console.log("authService :: emailVerification :: error", error);
-    }
-  }
+  // async emailVerification() {
+  //   try {
+  //     //maybe make it like just await and then return true
+  //     return await this.account.createVerification({
+  //       url: "http://localhost:5173/verify",
+  //     });
+  //   } catch (error) {
+  //     console.log("authService :: emailVerification :: error", error);
+  //   }
+  // }
 
   async logOut() {
     try {
