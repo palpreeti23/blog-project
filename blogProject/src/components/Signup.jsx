@@ -5,13 +5,13 @@ import authService from "../appwrite/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../store/AuthSlice";
 import image from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
-// import { useNavigate } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const create = async (data) => {
     const session = await authService.createAccount(data);
@@ -19,19 +19,20 @@ function Signup() {
       const userData = await authService.getCurrentUser();
       if (userData) {
         dispatch(login(userData));
-        // navigate("/");
+        navigate("/");
       }
     }
-    // navigate("/");
+    navigate("/");
   };
+
   return (
     <div className="w-full h-screen ">
       <div className="flex">
         <div className="w-1/2 ">
-          <img className="w-full h-screen" src={image} alt="" />
+          <img className="w-full h-screen rounded-l-xl" src={image} alt="" />
         </div>
 
-        <div className="w-1/2 h-screen bg-gray-700">
+        <div className="w-1/2 h-screen bg-gray-700 rounded-r-xl">
           <div className=" min-h-screen flex justify-center items-center">
             <div className=" m-4 px-9 py-4">
               <h2 className=" font-medium text-2xl text-white my-4 ">Signup</h2>
@@ -68,7 +69,7 @@ function Signup() {
                   labelClassName="text-white"
                   className="text-gray-600"
                   placeholder="Enter your password"
-                  {...register("Password", {
+                  {...register("password", {
                     required: true,
                   })}
                 />
@@ -78,14 +79,14 @@ function Signup() {
                   className="hover:border hover:shadow-xl "
                   bgColor="bg-blue-600 hover:bg-blue-500 active:bg-blue-700 "
                 >
-                  Login
+                  Signup
                 </Button>
               </form>
               <p className="text-white m-1 pr-2">
                 Already have an account?
-                {/* <Link> */}
-                <span className="ml-1">Login</span>
-                {/* </Link> */}
+                <Link to="/login">
+                  <span className="ml-1">Login</span>
+                </Link>
               </p>
             </div>
           </div>
