@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import LogoutBtn from "./LogoutBtn";
+// import LogoutBtn from "./LogoutBtn";
 import Logo from "../Logo";
 
 function Header() {
@@ -58,11 +58,11 @@ function Header() {
                 </li>
               ) : null
             )}
-            {authStatus && (
+            {/* {authStatus && (
               <li>
                 <LogoutBtn />
               </li>
-            )}
+            )} */}
           </ul>
         </div>
       </nav>
