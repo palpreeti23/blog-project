@@ -16,15 +16,95 @@ import Signup from "./pages/Signup";
 import You from "./pages/You";
 import CreatePost from "./pages/CreatePost";
 import EditPost from "./pages/EditPost";
+import Layout from "./Layout";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "/login",
+//         element: (
+//           <AuthLayout authentication={false}>
+//             <Login />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/signup",
+//         element: (
+//           <AuthLayout authentication={false}>
+//             <Signup />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/all-posts",
+//         element: (
+//           <AuthLayout authentication>
+//             <AllPosts />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/about",
+//         element: (
+//           <AuthLayout authentication>
+//             <About />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/you",
+//         element: (
+//           <AuthLayout authentication>
+//             <You />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/you/create-post",
+//         element: (
+//           <AuthLayout authentication>
+//             <CreatePost />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/edit-post/:slug",
+//         element: (
+//           <AuthLayout authentication>
+//             <EditPost />
+//           </AuthLayout>
+//         ),
+//       },
+//       {
+//         path: "/post/:slug",
+//         element: <Post />,
+//       },
+//     ],
+//   },
+// ]);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <App />,
+        children: [
+          {
+            index: true,
+            element: <Home />,
+          },
+        ],
       },
       {
         path: "/login",
