@@ -1,70 +1,139 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import appwriteService from "../appwrite/post";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Input, Button } from "./index";
+// import appwriteService from "../appwrite/post";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { Input, Button, Post } from "./index";
+import commentService from "../appwrite/comment";
+import { addComment, deleteComment, setComments } from "../store/CommentSlice";
 
 function Comments() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const { slug } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
-  const [comments, setComments] = useState([]);
-  //   const [comment, setComment] = useState("");
+  const { comments } = useSelector((state) => state.comment);
+  // const isAuthor = comment && userData ? comment.userId === userData.$id : null;
 
   useEffect(() => {
     if (slug) {
-      appwriteService.getComments([]).then((comment) => {
+      if (!slug) return;
+      commentService.getComments(slug).then((comment) => {
         if (comment) {
-          setComments(comment.documents);
+          dispatch(setComments(comment.documents));
         }
       });
     }
-  });
+
+    // console.log(isAuthor);
+  }, [slug]);
 
   const create = async (data) => {
-    await appwriteService.createComment({
-      ...data,
+    const newComment = await commentService.createComment({
+      content: data.comment,
+      postId: slug,
       userId: userData.$id,
+    });
+
+    if (newComment) {
+      dispatch(addComment(newComment));
+      reset();
+    }
+  };
+
+  const deleteCom = (commentId) => {
+    commentService.deleteComments(commentId).then((comment) => {
+      if (comment) {
+        dispatch(deleteComment(comment));
+      }
     });
   };
 
+  const timeAgo = (time) => {
+    const minute = Math.floor((Date.now() - new Date(time)) / 60000);
+    const hour = Math.floor(minute / 60);
+    const days = Math.floor(hour / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(weeks / 4);
+
+    if (minute < 1) return "just now";
+    if (minute < 60) return `${minute} minute ago`;
+    if (hour < 24) return `${hour} hour ago`;
+    if (days < 7) return `${days} days ago`;
+    if (weeks < 4) return `${weeks} weeks ago`;
+    if (months < 12) return `${months} months ago`;
+  };
+
   return (
-    <div className="w-2/3 h-auto flex flex-col">
+    <div className="w-2/3 h-auto flex flex-col mt-5">
       <div className="w-full">
+        <h2 className="font-medium text-2xl text-left text-gray-600">
+          COMMENTS
+        </h2>
         <form onSubmit={handleSubmit(create)}>
-          <Input
-            label="Comments"
-            labelClassName="text-gray-800 "
-            type="text"
-            placeholder="Enter your comment"
-            className="bg-white w-1/2 "
-            {...register("comment", { required: true })}
-          />
-          <Button
-            type="submit"
-            bgColor={`bg-blue-400  hover:bg-blue-600 active:bg-blue-800`}
-            className=""
-          >
-            add
-          </Button>
+          <div className="flex py-2">
+            <Input
+              labelClassName="text-gray-800 "
+              type="text"
+              placeholder="Enter your comment"
+              className="bg-white w-1/2 mt-4 h-10 "
+              {...register("comment", { required: true })}
+            />
+            <Button
+              type="submit"
+              bgColor={`bg-blue-400  hover:bg-blue-600 active:bg-blue-800`}
+              className=""
+            >
+              add
+            </Button>
+          </div>
         </form>
       </div>
 
       <div>
         <ul>
-          {comments?.map((comments) => (
-            <li
-              className="w-2/3 bg-white px-3 py-1 rounded-xl "
-              key={comments.$id}
-            >
-              {comments.comment}
-            </li>
-          ))}
+          {comments?.map((comment) => {
+            const isAuthor =
+              comment && userData ? comment.userId === userData.$id : null;
+            return (
+              <li
+                className="w-full bg-white px-3 py-1 rounded-xl text-medium  text-left mb-2 flex flex-col text-gray-950"
+                key={comment.$id}
+              >
+                <div className="flex justify-between">
+                  <p className="text-medium text-gray-700 ">
+                    <span className="text-sm mb-1 border rounded-2xl mr-1">
+                      <i className="fa-solid fa-user text-gray-600"></i>
+                    </span>
+                    {userData.name}
+                    <span className="text-sm text-gray-500 ml-2">
+                      {timeAgo(comment.$createdAt)}
+                    </span>
+                  </p>
+
+                  {isAuthor && (
+                    <p className="text-medium ">
+                      <button
+                        onClick={() => deleteCom(comment.$id)}
+                        class="text-gray-400 hover:text-gray-600 text-sm"
+                      >
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </p>
+                  )}
+                </div>
+
+                <div className="mx-1">{comment.content}</div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
   );
+  //   });
+  // }
 }
 
 export default Comments;
