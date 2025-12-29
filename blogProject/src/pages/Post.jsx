@@ -25,6 +25,14 @@ function Post() {
     }
   });
 
+  const deletePosts = async () => {
+    await appwriteService.deletePostData(post.$id).then((post) => {
+      if (post) {
+        dispatch(deletePost(post));
+      }
+    });
+  };
+
   const images = post?.featuredImage
     ? appwriteService.getFilePreview(post.featuredImage)
     : false;
@@ -33,11 +41,11 @@ function Post() {
     return <p>loading...</p>;
   }
   return (
-    <div className="w-full h-auto flex flex-col bg-gray-200 rounded-xl pl-4">
+    <div className="w-full h-auto flex flex-col  items-center bg-gray-200 rounded-xl">
       <div className="w-2/3 flex flex-col mt-5 ">
         <div className=" ">
           <img
-            className="h-60 w-full rounded-lg object-cover"
+            className="h-80 w-full rounded-lg object-cover"
             src={images}
             alt="post image"
           />
@@ -61,17 +69,18 @@ function Post() {
             </Link>
             <Button
               className="hover:border hover:shadow-xl "
-              bgColor="bg-red-500"
-              onClick={deletePost}
+              bgColor="bg-red-600"
+              onClick={deletePosts}
             >
               delete
             </Button>
           </div>
         )}
-
-        {/* <Container>
-          <Comments />
-        </Container> */}
+        <div>
+          <Container>
+            <Comments />
+          </Container>
+        </div>
       </div>
     </div>
   );

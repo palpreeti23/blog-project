@@ -20,8 +20,8 @@ function AllPosts() {
     });
   }, [dispatch]);
   return (
-    <div className="w-full">
-      <ul className="flex">
+    <div className="w-full mt-5">
+      <ul className="flex justify-around flex-wrap">
         {posts?.map((post) => (
           <li key={post.$id} className="mx-3">
             <PostCard {...post} />

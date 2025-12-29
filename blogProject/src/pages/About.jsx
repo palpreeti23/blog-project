@@ -1,8 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
-    <div className=" flex items-center justify-center">
+    // <div className="flex flex-col h-auto bg-gray-200 rounded-2xl  py-5">
+    //   <Link to={`/`}>
+    //     <div className="text-center text-3xl mx-10 my-3 ">
+    //       <p className="bg-gray-400 w-15 rounded-xl px-4 pb-1"> &larr;</p>
+    //     </div>
+    //   </Link>
+    <div className=" flex items-center justify-center flex-col my-8">
       <div className="w-2/3 h-auto bg-gray-50 rounded-3xl py-3 px-5 my-5 ">
         <h2 className="font-bold text-xl text-gray-900 text-left mt-2">
           ABOUT
@@ -32,6 +39,7 @@ function About() {
         </div>
       </div>
     </div>
+    // </div>
   );
 }
 

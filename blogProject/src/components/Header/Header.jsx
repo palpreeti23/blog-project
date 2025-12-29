@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import LogoutBtn from "./LogoutBtn";
 import Logo from "../Logo";
 
 function Header() {
@@ -34,35 +33,36 @@ function Header() {
       slug: "/about",
       active: authStatus,
     },
-    {
-      name: "You",
-      slug: "/you",
-      active: authStatus,
-    },
   ];
 
   return (
-    <div className="w-full h-auto mb-4">
-      <nav className="py-2 bg-gray-600 border rounded-xl ">
+    <div className="w-full h-auto ">
+      <nav className="py-2 bg-gray-600 border rounded-lg">
         <div className="flex ">
           <div className="px-5 pt-1 text-gray-400">
             <Logo />
           </div>
-          <ul className="outline-none flex ml-auto pr-8 text-gray-950">
+          <ul className="outline-none flex ml-auto pr-16 text-gray-950 pt-2">
             {navItems.map((items) =>
               items.active ? (
-                <li className="mx-8 px-2 " key={items.name}>
+                <li className="mx-10 px-2 " key={items.name}>
                   <button onClick={() => navigate(items.slug)}>
                     {items.name}
                   </button>
                 </li>
               ) : null
             )}
-            {/* {authStatus && (
+
+            {authStatus && (
               <li>
-                <LogoutBtn />
+                <button
+                  className="border rounded-4xl bg-gray-500 px-1 "
+                  onClick={() => navigate("/you")}
+                >
+                  <i class="fa-solid fa-user"></i>
+                </button>
               </li>
-            )} */}
+            )}
           </ul>
         </div>
       </nav>

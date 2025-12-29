@@ -3,7 +3,7 @@ import { PostCard } from "../components";
 import appwriteService from "../appwrite/post";
 import { setPosts } from "../store/PostSlice";
 import { useDispatch, useSelector } from "react-redux";
-import images from "../img/Gemini_Generated_Image_qtfelgqtfelgqtfe.png";
+import images from "../img/blog 2.jpg";
 
 function Home() {
   const dispatch = useDispatch();
@@ -20,15 +20,15 @@ function Home() {
   }, [dispatch]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col mt-1">
       <div className="w-full h-auto">
         <img
-          className="w-full h-90 object-cover rounded-2xl"
+          className="w-full h-100 object-cover rounded-lg "
           src={images}
           alt="image"
         />
       </div>
-      <ul className="flex">
+      <ul className="flex flex-wrap my-8 justify-around ">
         {posts?.map((post) => (
           <li key={post.$id} className="mx-3">
             <PostCard {...post} />
