@@ -6,7 +6,6 @@ function You() {
   return (
     <Container>
       <MyPost />
-      {/* <Outlet /> */}
     </Container>
   );
 }

@@ -72,4 +72,5 @@ button:focus-visible {
 
 body {
   font-family: "Times New Roman", Times, serif;
+  /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
 }

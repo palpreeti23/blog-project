@@ -26,14 +26,14 @@ function Signup() {
   };
 
   return (
-    <div className="w-full h-screen ">
-      <div className="flex">
+    <div className="flex justify-center items-center mt-10">
+      <div className="flex w-2/3 h-120">
         <div className="w-1/2 ">
-          <img className="w-full h-screen rounded-l-xl" src={image} alt="" />
+          <img className="w-full h-full rounded-l-xl" src={image} alt="" />
         </div>
 
-        <div className="w-1/2 h-screen bg-gray-700 rounded-r-xl">
-          <div className=" min-h-screen flex justify-center items-center">
+        <div className="w-1/2 h-120 bg-gray-700 rounded-r-xl">
+          <div className=" h-auto flex justify-center items-center">
             <div className=" m-4 px-9 py-4">
               <h2 className=" font-medium text-2xl text-white my-4 ">Signup</h2>
               <form onSubmit={handleSubmit(create)} className="">
@@ -85,7 +85,7 @@ function Signup() {
               <p className="text-white m-1 pr-2">
                 Already have an account?
                 <Link to="/login">
-                  <span className="ml-1">Login</span>
+                  <span className="ml-1 hover:underline">Login</span>
                 </Link>
               </p>
             </div>

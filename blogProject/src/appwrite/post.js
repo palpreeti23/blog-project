@@ -32,6 +32,7 @@ class AppwriteService {
       );
     } catch (error) {
       console.log("appwriteService :: createPost :: error", error);
+      throw error;
     }
   }
 
@@ -50,6 +51,7 @@ class AppwriteService {
       );
     } catch (error) {
       console.log("appwriteService :: updatePostData :: error", error);
+      throw error;
     }
   }
 
@@ -62,6 +64,7 @@ class AppwriteService {
       );
     } catch (error) {
       console.log("appwriteService :: grtPost :: error", error);
+      throw error;
     }
   }
 
@@ -74,6 +77,7 @@ class AppwriteService {
       );
     } catch (error) {
       console.log("appwriteService :: getPosts :: error", error);
+      throw error;
     }
   }
 
@@ -87,6 +91,7 @@ class AppwriteService {
       return true;
     } catch (error) {
       console.log("appwriteService :: deletePostData :: error", error);
+      throw error;
       return false;
     }
   }
@@ -110,6 +115,7 @@ class AppwriteService {
       );
     } catch (error) {
       console.log("appwriteService :: uploadFile :: error", error);
+      throw error;
     }
   }
 
@@ -119,6 +125,7 @@ class AppwriteService {
       return true;
     } catch (error) {
       console.log("appwriteService :: deleteFile :: error", error);
+      throw error;
     }
   }
 
@@ -128,34 +135,35 @@ class AppwriteService {
 
   //comments
 
-  async createComment({ postId, userId, content }) {
-    try {
-      return await this.database.createDocument(
-        config.appwriteDatabaseId,
-        config.appwriteCommentCollectionId,
-        slug,
-        {
-          content,
-          userId,
-          // postId,
-        }
-      );
-    } catch (error) {
-      console.log("appwriteService :: createComment :: error", error);
-    }
-  }
+  // async createComment({ postId, userId, content }) {
+  //   try {
+  //     return await this.database.createDocument(
+  //       config.appwriteDatabaseId,
+  //       config.appwriteCommentCollectionId,
+  //       ID.unique(),
+  //       {
+  //         content,
+  //         userId,
+  //         postId,
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.log("appwriteService :: createComment :: error", error);
+  //     throw error;
+  //   }
+  // }
 
-  async getComments(postId) {
-    try {
-      return await this.database.listDocuments(
-        config.appwriteDatabaseId,
-        config.appwriteCommentCollectionId,
-        [Query.equal("postId", postId), Query.orderDesc("createdAt")]
-      );
-    } catch (error) {
-      console.log("appwriteService :: grtComment :: error", error);
-    }
-  }
+  // async getComments(postId) {
+  //   try {
+  //     return await this.database.listDocuments(
+  //       config.appwriteDatabaseId,
+  //       config.appwriteCommentCollectionId,
+  //       [Query.equal("postId", postId), Query.orderDesc("$createdAt")]
+  //     );
+  //   } catch (error) {
+  //     console.log("appwriteService :: grtComment :: error", error);
+  //   }
+  // }
 }
 
 const appwriteService = new AppwriteService();

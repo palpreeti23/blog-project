@@ -37,15 +37,15 @@ function Header() {
 
   return (
     <div className="w-full h-auto ">
-      <nav className="py-2 bg-gray-600 border rounded-lg">
-        <div className="flex ">
+      <nav className="py-1 bg-gray-600 border rounded-lg">
+        <div className="flex flex-wrap justify-between">
           <div className="px-5 pt-1 text-gray-400">
             <Logo />
           </div>
-          <ul className="outline-none flex ml-auto pr-16 text-gray-950 pt-2">
+          <ul className="outline-none flex flex-wrap justify-around pr-16 text-gray-950 pt-2">
             {navItems.map((items) =>
               items.active ? (
-                <li className="mx-10 px-2 " key={items.name}>
+                <li className="mx-2 px-2 " key={items.name}>
                   <button onClick={() => navigate(items.slug)}>
                     {items.name}
                   </button>

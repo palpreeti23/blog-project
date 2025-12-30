@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-// import appwriteService from "../appwrite/post";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input, Button, Post } from "./index";
@@ -14,7 +13,7 @@ function Comments() {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
   const { comments } = useSelector((state) => state.comment);
-  // const isAuthor = comment && userData ? comment.userId === userData.$id : null;
+  // const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (slug) {
@@ -25,8 +24,6 @@ function Comments() {
         }
       });
     }
-
-    // console.log(isAuthor);
   }, [slug]);
 
   const create = async (data) => {
@@ -34,6 +31,7 @@ function Comments() {
       content: data.comment,
       postId: slug,
       userId: userData.$id,
+      userName: userData.name,
     });
 
     if (newComment) {
@@ -66,27 +64,26 @@ function Comments() {
   };
 
   return (
-    <div className="w-2/3 h-auto flex flex-col mt-5">
+    <div className="w-full h-auto flex flex-col mt-8 z-30 p-4 shadow-2xl bg-gray-200 rounded-2xl ">
       <div className="w-full">
-        <h2 className="font-medium text-2xl text-left text-gray-600">
+        <h2 className="font-medium text-xl text-left text-gray-600">
           COMMENTS
         </h2>
         <form onSubmit={handleSubmit(create)}>
-          <div className="flex py-2">
+          <div className="flex h-20 w-full relative">
             <Input
               labelClassName="text-gray-800 "
               type="text"
-              placeholder="Enter your comment"
-              className="bg-white w-1/2 mt-4 h-10 "
+              placeholder="Type your comment"
+              className="bg-white w-full mt-4 h-12 border-none "
               {...register("comment", { required: true })}
             />
-            <Button
+            <button
               type="submit"
-              bgColor={`bg-blue-400  hover:bg-blue-600 active:bg-blue-800`}
-              className=""
+              className=" bg-blue-400 hover:bg-blue-600 active:bg-blue-800 h-[59%] px-4 py-1 rounded-r-xl absolute right-0 mt-4"
             >
-              add
-            </Button>
+              Add
+            </button>
           </div>
         </form>
       </div>
@@ -106,7 +103,7 @@ function Comments() {
                     <span className="text-sm mb-1 border rounded-2xl mr-1">
                       <i className="fa-solid fa-user text-gray-600"></i>
                     </span>
-                    {userData.name}
+                    {comment.userName || "unknown"}
                     <span className="text-sm text-gray-500 ml-2">
                       {timeAgo(comment.$createdAt)}
                     </span>
@@ -132,8 +129,6 @@ function Comments() {
       </div>
     </div>
   );
-  //   });
-  // }
 }
 
 export default Comments;

@@ -14,6 +14,7 @@ import Comments from "./Comments";
 import AuthLayout from "./AuthLayout";
 import MyPost from "./MyPost";
 import Logo from "./Logo";
+import LikeSection from "./LikeSection";
 
 export {
   Header,
@@ -32,4 +33,5 @@ export {
   AuthLayout,
   MyPost,
   Logo,
+  LikeSection,
 };

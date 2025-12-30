@@ -28,7 +28,7 @@ function Home() {
           alt="image"
         />
       </div>
-      <ul className="flex flex-wrap my-8 justify-around ">
+      <ul className="flex flex-wrap my-8 justify-around gap-6 ">
         {posts?.map((post) => (
           <li key={post.$id} className="mx-3">
             <PostCard {...post} />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import images from "../img/ChatGPT Image Dec 23, 2025, 11_58_52 PM.png";
+// import images from "../img/ChatGPT Image Dec 23, 2025, 11_58_52 PM.png";
 import { Link } from "react-router-dom";
 import appwriteService from "../appwrite/post";
 import parse from "html-react-parser";

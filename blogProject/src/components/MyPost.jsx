@@ -34,9 +34,9 @@ function MyPost() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col w-full ">
-      <div className=" bg-gray-100 rounded-2xl my-3 ">
-        <div className="flex justify-center mt-4 border-b-2 border-gray-600 pb-1 w-20 mx-auto mb-5">
+    <div className="flex flex-col w-full  ">
+      <div className="rounded-2xl my-3 ">
+        <div className="flex justify-center mt-4 border-b-2 border-gray-600 pb-1 w-20 mx-auto mb-5 flex-wrap">
           <p className=" border rounded-2xl px-1.5 pt-1 bg-gray-500">
             <i class="fa-solid fa-user"></i>
           </p>
@@ -45,42 +45,34 @@ function MyPost() {
           </h2>
         </div>
 
-        <div className="flex">
-          <div className="w-1/7 bg-white flex flex-col rounded-xl pt-4 px-3 ">
+        <div className="flex flex-wrap">
+          <div className="w-1/7 bg-white flex flex-col rounded-xl pt-4 px-3 flex-wrap">
             <Button
               onClick={() => navigate("/you/create-post")}
-              className="hover:border hover:shadow-xl h-10 "
+              className="hover:border hover:shadow-xl whitespace-normal min-w-[20%] text-center "
               bgColor="bg-blue-500 hover:bg-blue-500 active:bg-blue-700 "
             >
               + Create Post
             </Button>
 
             <Button
-              className="hover:border hover:shadow-xl h-10 "
+              className="hover:border hover:shadow-xl whitespace-normal min-w-[20%] text-center "
               bgColor="bg-gray-500 hover:bg-gray-500 active:bg-gray-700 "
             >
               <LogoutBtn />
             </Button>
           </div>
 
-          <div className="w-3/4 h-auto flex px-4">
+          <div className="w-3/4 h-auto flex px-4 flex-wrap">
             <div className="w-full rounded-2xl">
-              <h2 className=" font-medium text-left my-2 text-xl px-5">
+              <h2 className=" font-medium text-left my-8 text-xl px-8">
                 Your Posts ({authorPosts.length})
               </h2>
-              {/* <div className="flex ">
-                <p className="text-gray-600 text-medium text-left ml-8 my-3 mt-4 ">
-                  Posts ({authorPosts.length})
-                </p>
-                <p className="text-gray-600 text-medium text-left ml-8 my-3 mt-4 ">
-                  Comments ({})
-                </p>
-              </div> */}
 
               {authorPosts.length === 0 ? (
                 <p className="text-gray-400">No posts yet..</p>
               ) : (
-                <ul className=" my-5 flex flex-wrap justify-around gap-2">
+                <ul className=" my-5 flex flex-wrap gap-5">
                   {authorPosts.map((posts) => (
                     <li key={posts.$id} className="mx-4">
                       <div className="bg-gray-200 border rounded-2xl w-60">

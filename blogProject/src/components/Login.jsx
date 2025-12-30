@@ -20,20 +20,20 @@ function Login() {
   };
 
   return (
-    <div className="w-full h-screen ">
-      <div className="flex">
-        <div className="w-1/2 ">
+    <div className="flex justify-center items-center mt-10">
+      <div className="flex w-2/3 h-120 ">
+        <div className="w-1/2  ">
           <img
-            className="w-full h-screen object-cover rounded-l-xl"
+            className="w-full h-full rounded-l-xl"
             src={image}
             alt="placeholder"
           />
         </div>
 
-        <div className="w-1/2 h-screen bg-gray-700 rounded-r-xl">
-          <div className=" min-h-screen flex justify-center items-center">
+        <div className="w-1/2 h-120 bg-gray-700 rounded-r-xl">
+          <div className="h-auto flex justify-center items-center">
             <div className="rounded-xl m-4 p-9">
-              <h2 className=" font-medium text-2xl text-white my-5 ">Login</h2>
+              <h2 className=" font-medium text-2xl text-white my-3 ">Login</h2>
               <form onSubmit={handleSubmit(login)} className="">
                 <Input
                   type="email"
@@ -72,7 +72,7 @@ function Login() {
               <p className="text-white m-1 pr-2">
                 Don't have an account?
                 <Link to="/signup">
-                  <span className="ml-1">Signup</span>
+                  <span className="ml-1 hover:underline">Signup</span>
                 </Link>
               </p>
             </div>

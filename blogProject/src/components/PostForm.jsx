@@ -12,9 +12,9 @@ function PostForm({ post }) {
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const { register, handleSubmit, watch, setValue, getValues, control, reset } =
@@ -33,7 +33,7 @@ function PostForm({ post }) {
       reset({
         title: post.title,
         content: post.content,
-        slug: post.slug,
+        slug: post?.slug,
         featuredImage: post.featuredImage,
       });
     }
@@ -64,7 +64,7 @@ function PostForm({ post }) {
       }
     } else {
       const image = data.image[0];
-      console.log(" no image", image);
+      // console.log(" no image", image);
       const file = await appwriteService.uploadfile(image);
       if (file) {
         const fileId = file.$id;
@@ -156,8 +156,7 @@ function PostForm({ post }) {
               />
             ) : (
               <img
-                // src={preview}
-                src={images}
+                src={preview || images}
                 alt="Preview"
                 className="h-full w-full rounded-lg object-cover"
               />
@@ -167,7 +166,7 @@ function PostForm({ post }) {
           <Input
             label="image"
             type="file"
-            accept="image/jpeg, image/jpg, imag/svg, image/png, image/gif"
+            accept="image/jpeg, image/jpg, imag/svg, image/png, image/gif, image/avif"
             placeholder="add your image"
             className="my-1 w-2/3 bg-white"
             {...register("image", { required: true })}
