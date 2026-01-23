@@ -64,7 +64,6 @@ function PostForm({ post }) {
       }
     } else {
       const image = data.image[0];
-      // console.log(" no image", image);
       const file = await appwriteService.uploadfile(image);
       if (file) {
         const fileId = file.$id;
@@ -109,11 +108,11 @@ function PostForm({ post }) {
   return (
     <form
       onSubmit={handleSubmit(create)}
-      className="w-full h-auto bg-gray-200 rounded-2xl p-3"
+      className="w-full h-auto bg-gray-50 rounded"
     >
-      <div className="flex flex-wrap my-4">
-        <div className="w-2/3  pb-5 pl-5">
-          <div className="w-4/5 ">
+      <div className="flex flex-wrap ">
+        <div className="w-2/3  pb-5 pl-2 ">
+          <div className="w-[75%] mx-auto mt-5">
             <Input
               label="Title"
               labelClassName="text-gray-800 "
@@ -135,18 +134,13 @@ function PostForm({ post }) {
                 });
               }}
             />
-            <div className="">
-              <RTE
-                label="content"
-                name="content"
-                control={control}
-                // defaultValue={getValues("content")}
-              />
+            <div className="shadow-lg shadow-gray-400">
+              <RTE label="content" name="content" control={control} />
             </div>
           </div>
         </div>
 
-        <div className="w-1/3 pr-5 ">
+        <div className="w-1/3 pr-5 flex flex-col items-center ">
           <div className="w-full h-50 my-7">
             {post ? (
               <img
@@ -172,22 +166,6 @@ function PostForm({ post }) {
             {...register("image", { required: true })}
             onChange={handleImageChange}
           />
-
-          {/* {post ? (
-            <div className="w-full h-auto object-contain">
-              <img
-                src={appwriteService.getFilePreview(post.featuredImage)}
-                className="rounded-lg w-full h-30"
-                alt={post.title}
-              />
-            </div>
-          ) : (
-            <img
-              src={preview}
-              alt="Preview"
-              className="h-full w-full rounded-lg object-cover"
-            />
-          )} */}
 
           <Button
             type="submit"

@@ -74,3 +74,13 @@ body {
   font-family: "Times New Roman", Times, serif;
   /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
 }
+
+.pacifico-regular {
+  font-family: "Pacifico", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dancing-script {
+  font-family: "Dancing Script", cursive;
+}

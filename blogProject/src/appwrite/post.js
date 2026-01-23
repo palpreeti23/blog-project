@@ -132,38 +132,6 @@ class AppwriteService {
   getFilePreview(fileId) {
     return this.bucket.getFileView(config.appwriteBucketId, fileId);
   }
-
-  //comments
-
-  // async createComment({ postId, userId, content }) {
-  //   try {
-  //     return await this.database.createDocument(
-  //       config.appwriteDatabaseId,
-  //       config.appwriteCommentCollectionId,
-  //       ID.unique(),
-  //       {
-  //         content,
-  //         userId,
-  //         postId,
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.log("appwriteService :: createComment :: error", error);
-  //     throw error;
-  //   }
-  // }
-
-  // async getComments(postId) {
-  //   try {
-  //     return await this.database.listDocuments(
-  //       config.appwriteDatabaseId,
-  //       config.appwriteCommentCollectionId,
-  //       [Query.equal("postId", postId), Query.orderDesc("$createdAt")]
-  //     );
-  //   } catch (error) {
-  //     console.log("appwriteService :: grtComment :: error", error);
-  //   }
-  // }
 }
 
 const appwriteService = new AppwriteService();

@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 
 function Button({
   children,
@@ -13,9 +13,8 @@ function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`border rounded-xl my-3 py-2 px-3 ${bgColor}${className}${textColor}`}
+      className={`border border-gray-500 rounded-xl my-3 py-2 px-3 w-full ${bgColor}${className}${textColor}`}
       {...props}
-      //   ref={ref}
     >
       {children}
     </button>

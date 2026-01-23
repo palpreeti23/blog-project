@@ -1,12 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+import { FiHome } from "react-icons/fi";
 import Logo from "../Logo";
 
 function Header() {
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
   // console.log(authStatus);
+
   const navItems = [
     {
       name: "Home",
@@ -37,30 +40,46 @@ function Header() {
 
   return (
     <div className="w-full h-auto ">
-      <nav className="py-1 bg-gray-600 border rounded-lg">
-        <div className="flex flex-wrap justify-between">
-          <div className="px-5 pt-1 text-gray-400">
-            <Logo />
+      <nav className="py-2 bg-gray-800 ">
+        <div className="flex flex-wrap justify-around ">
+          <div className="px-5 pt-1 text-gray-400 ">
+            {/* <Logo /> */}
+            <div className="text-white font-semibold pacifico-regular text-2xl ">
+              BLOG
+            </div>
           </div>
-          <ul className="outline-none flex flex-wrap justify-around pr-16 text-gray-950 pt-2">
+          <ul className=" w-[50%] outline-none flex flex-wrap  justify-around text-gray-100 text-lg pt-2 mr-10 ">
             {navItems.map((items) =>
               items.active ? (
                 <li className="mx-2 px-2 " key={items.name}>
-                  <button onClick={() => navigate(items.slug)}>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "text-orange-400" : "text-gray-100"
+                    }
+                    to={items.slug}
+                  >
                     {items.name}
-                  </button>
+                  </NavLink>
                 </li>
-              ) : null
+              ) : //  <li className="mx-2 px-2 " key={items.name}>
+              //     <button onClick={() => navigate(items.slug)}>
+              //       {items.name}
+              //     </button>
+              //   </li>
+
+              null
             )}
 
             {authStatus && (
               <li>
-                <button
-                  className="border rounded-4xl bg-gray-500 px-1 "
-                  onClick={() => navigate("/you")}
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-400" : "text-gray-100"
+                  }
+                  to={"/you"}
                 >
-                  <i class="fa-solid fa-user"></i>
-                </button>
+                  <FaUserCircle size={24} />
+                </NavLink>
               </li>
             )}
           </ul>

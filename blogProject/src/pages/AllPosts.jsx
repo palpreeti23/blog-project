@@ -21,9 +21,9 @@ function AllPosts() {
   }, [dispatch]);
   return (
     <div className="w-full mt-5">
-      <ul className="flex justify-around gap-5 flex-wrap">
+      <ul className="flex justify-center gap-2 flex-wrap">
         {posts?.map((post) => (
-          <li key={post.$id} className="mx-3">
+          <li key={post.$id} className="mx-1">
             <PostCard {...post} />
           </li>
         ))}

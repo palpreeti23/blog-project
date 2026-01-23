@@ -33,7 +33,7 @@ function LikeSection({ post }) {
 
   return (
     <div className="inline-flex">
-      <div className="bg-gray-100 rounded-lg flex gap-4">
+      <div className="flex gap-4">
         <button className=" text-gray-700 " onClick={() => react("like")}>
           <i className="fa-solid fa-thumbs-up"></i>
           {like}

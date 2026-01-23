@@ -15,6 +15,7 @@ import AuthLayout from "./AuthLayout";
 import MyPost from "./MyPost";
 import Logo from "./Logo";
 import LikeSection from "./LikeSection";
+import CoverImage from "./CoverImage";
 
 export {
   Header,
@@ -34,4 +35,5 @@ export {
   MyPost,
   Logo,
   LikeSection,
+  CoverImage,
 };

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input, Button, Post } from "./index";
 import commentService from "../appwrite/comment";
+import { FaUserCircle } from "react-icons/fa";
 import { addComment, deleteComment, setComments } from "../store/CommentSlice";
 
 function Comments() {
@@ -64,7 +65,7 @@ function Comments() {
   };
 
   return (
-    <div className="w-full h-auto flex flex-col mt-8 z-30 p-4 shadow-2xl bg-gray-200 rounded-2xl ">
+    <div className="w-full h-auto flex flex-col mt-8 z-30 p-4 shadow shadow-gray-500 bg-gray-50 rounded-lg text-gray-600">
       <div className="w-full">
         <h2 className="font-medium text-xl text-left text-gray-600">
           COMMENTS
@@ -75,12 +76,12 @@ function Comments() {
               labelClassName="text-gray-800 "
               type="text"
               placeholder="Type your comment"
-              className="bg-white w-full mt-4 h-12 border-none "
+              className="w-full mt-4 h-12 border-none "
               {...register("comment", { required: true })}
             />
             <button
               type="submit"
-              className=" bg-blue-400 hover:bg-blue-600 active:bg-blue-800 h-[59%] px-4 py-1 rounded-r-xl absolute right-0 mt-4"
+              className=" bg-blue-600 hover:bg-blue-500 text-white active:bg-blue-800 h-[59%] px-4 py-1 rounded-r-xl absolute right-0 mt-4"
             >
               Add
             </button>
@@ -99,21 +100,21 @@ function Comments() {
                 key={comment.$id}
               >
                 <div className="flex justify-between">
-                  <p className="text-medium text-gray-700 ">
-                    <span className="text-sm mb-1 border rounded-2xl mr-1">
-                      <i className="fa-solid fa-user text-gray-600"></i>
+                  <p className="text-medium text-gray-700 flex m-0 ">
+                    <span className="pr-1">
+                      <FaUserCircle size={25} />
                     </span>
-                    {comment.userName || "unknown"}
+                    <span> {comment.userName || "unknown"}</span>
                     <span className="text-sm text-gray-500 ml-2">
                       {timeAgo(comment.$createdAt)}
                     </span>
                   </p>
 
                   {isAuthor && (
-                    <p className="text-medium ">
+                    <p className="text-xl ">
                       <button
                         onClick={() => deleteCom(comment.$id)}
-                        class="text-gray-400 hover:text-gray-600 text-sm"
+                        class="text-gray-400 hover:text-red-600 text-sm"
                       >
                         <i class="fa-solid fa-trash"></i>
                       </button>
@@ -121,7 +122,7 @@ function Comments() {
                   )}
                 </div>
 
-                <div className="mx-1">{comment.content}</div>
+                <div className="mx-7">{comment.content}</div>
               </li>
             );
           })}

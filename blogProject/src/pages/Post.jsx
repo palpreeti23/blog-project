@@ -49,11 +49,11 @@ function Post() {
     return <p>loading...</p>;
   }
   return (
-    <div className="w-full h-auto flex flex-col  items-center ">
-      <div className="w-2/3 flex flex-col mt-5 bg-gray-100 rounded-xl p-2 ">
+    <div className="w-full h-auto flex flex-col items-start mx-10 mb-5 ">
+      <div className="w-2/3 flex flex-col rounded-xl p-2 ">
         <div className="w-full ">
           <img
-            className="h-80 w-full rounded-lg object-cover"
+            className="h-80 w-full rounded object-cover"
             src={images}
             alt="post image"
           />
@@ -61,7 +61,7 @@ function Post() {
           <h2 className="text-gray-900 text-xl text-left px-3 py-2">
             {post.title}
           </h2>
-          <p className="text-gray-800 text-left px-3 py-1">
+          <p className="text-gray-800 text-left px-3 py-3">
             {parse(post.content)}
           </p>
         </div>
@@ -83,13 +83,14 @@ function Post() {
               </button>
               {open && (
                 <div
-                  className={`flex flex-col px-1 text-sm bg-gray-200 transform transition-all duration-200 ease-out rounded-sm absolute`}
+                  className={`flex flex-col px-2  py-1 text-sm bg-gray-100 border-gray-300 border shadow-lg shadow-gray-500 text-gray-800
+               items-start rounded-sm absolute left-full ml-1 top-0`}
                 >
-                  <button className="" onClick={EditPost}>
+                  <button className="hover:text-blue-600 " onClick={EditPost}>
                     Edit
                   </button>
 
-                  <button className="" onClick={deletePosts}>
+                  <button className=" hover:text-red-600" onClick={deletePosts}>
                     Delete
                   </button>
                 </div>

@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import authService from "./appwrite/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "./store/AuthSlice";
+import CoverImage from "./components/CoverImage";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
+      {/* <CoverImage /> */}
     </div>
   );
 }

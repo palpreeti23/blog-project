@@ -12,7 +12,7 @@ function PostCard({ title, featuredImage, $id, content }) {
   const [expand, setExpand] = useState(false);
 
   return (
-    <div className="w-60 h-auto rounded-xl border bg-gray-200 shadow-gray-600 shadow-2xl my-3 ">
+    <div className="w-60 h-auto rounded-xl border border-gray-400 bg-gray-200 shadow-gray-400 shadow-2xl my-3 ">
       <div className="flex flex-col ">
         <Link to={`/post/${$id}`}>
           <img
