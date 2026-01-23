@@ -112,7 +112,7 @@ function PostForm({ post }) {
     >
       <div className="flex flex-wrap ">
         <div className="w-2/3  pb-5 pl-2 ">
-          <div className="w-[75%] mx-auto mt-5">
+          <div className="w-[75%] mx-auto mt-5 ">
             <Input
               label="Title"
               labelClassName="text-gray-800 "
